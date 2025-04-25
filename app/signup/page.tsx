@@ -12,11 +12,11 @@ const Signup = () => {
     password: "",
   });
   const router = useRouter();
-  useEffect(() => {
-    if (isUserLoggedIn()) {
-      router.push("/dashboard");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isUserLoggedIn()) {
+  //     router.push("/dashboard");
+  //   }
+  // }, []);
   const handelChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
