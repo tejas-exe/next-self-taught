@@ -10,12 +10,6 @@ const Login = () => {
     userName: "",
     password: "",
   });
-
-  // useEffect(() => {
-  //   if (isUserLoggedIn()) {
-  //     router.push("/dashboard");
-  //   }
-  // }, []);
   const router = useRouter();
   const handelChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({

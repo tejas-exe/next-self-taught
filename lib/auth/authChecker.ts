@@ -1,17 +1,22 @@
+import { userModal } from "@/modal/userModel";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const authChecker = async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  if (!token) redirect("/signup");
-
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRET!);
-    return decoded;
-  } catch (err) {
-    redirect("/login");
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (token) {
+      const decoded = await jwt.verify(token, process.env.TOKEN_SECRET!);
+      if (typeof decoded !== "string" && "id" in decoded) {
+        const user = userModal.findById(decoded.id);
+        return user;
+      }
+    } else {
+      throw Error("Invalid token");
+    }
+  } catch (err: any) {
+    throw Error(err.message);
   }
 };

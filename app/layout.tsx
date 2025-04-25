@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { authChecker } from "@/lib/auth/authChecker";
+import LogoutButton from "@/components/LogoutButton";
+import { cookies } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +24,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* Header */}
+        <header className="w-full px-6 py-4 flex justify-between items-center bg-white/30 backdrop-blur-md shadow-sm fixed top-0 left-0 z-50">
+          <h1 className="text-xl font-semibold text-gray-800"></h1>
+          {token && <LogoutButton />}
+        </header>
+
+        {/* Main Content with top padding to avoid overlap */}
+        <main className="pt-20">{children}</main>
       </body>
     </html>
   );
