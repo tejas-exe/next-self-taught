@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
   verifyTokenExpiry: Date,
+  OauthID: String,
 });
 
 userSchema.pre("save", async function (next) {

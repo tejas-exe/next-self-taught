@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import LogoutButton from "@/components/LogoutButton";
 import { cookies } from "next/headers";
+import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,18 +29,20 @@ export default async function RootLayout({
   const token = cookieStore.get("token")?.value;
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* Header */}
-        <header className="w-full px-6 py-4 flex justify-between items-center bg-white/30 backdrop-blur-md shadow-sm fixed top-0 left-0 z-50">
-          <h1 className="text-xl font-semibold text-gray-800"></h1>
-          {token && <LogoutButton />}
-        </header>
+      <SessionWrapper>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {/* Header */}
+          <header className="w-full px-6 py-4 flex justify-between items-center bg-white/30 backdrop-blur-md shadow-sm fixed top-0 left-0 z-30">
+            <h1 className="text-xl font-semibold text-gray-800">Quotes</h1>
+            {token && <LogoutButton />}
+          </header>
 
-        {/* Main Content with top padding to avoid overlap */}
-        <main className="pt-20">{children}</main>
-      </body>
+          {/* Main Content with top padding to avoid overlap */}
+          <main className="pt-20">{children}</main>
+        </body>
+      </SessionWrapper>
     </html>
   );
 }

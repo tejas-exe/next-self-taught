@@ -1,6 +1,7 @@
 "use client";
 import InputField from "@/components/InputFields";
 import { isUserLoggedIn } from "@/lib/auth/clientAuth";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import React, { useEffect, useState } from "react";
@@ -63,6 +64,12 @@ const Login = () => {
           className="w-full py-3 bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
         >
           Log in ✨
+        </button>
+        <button
+          className="w-full py-3 bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+          onClick={() => signIn()}
+        >
+          Sign in with Github
         </button>
       </form>
     </div>
