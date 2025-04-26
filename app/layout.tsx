@@ -24,8 +24,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
   return (
     <html lang="en">
       <body
@@ -34,7 +32,7 @@ export default async function RootLayout({
         {/* Header */}
         <header className="w-full px-6 py-4 flex justify-between items-center bg-white/30 backdrop-blur-md shadow-sm fixed top-0 left-0 z-50">
           <h1 className="text-xl font-semibold text-gray-800"></h1>
-          {token && <LogoutButton />}
+        <LogoutButton />
         </header>
 
         {/* Main Content with top padding to avoid overlap */}
